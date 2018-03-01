@@ -241,4 +241,11 @@ inline bool read_landmark_data(std::string filename, std::vector<LandmarkObs>& o
 	return true;
 }
 
+//use to calculate measurement's Multivariate-Gaussian probability density
+inline double multi_gauss_prob_den(double obs_x,double obs_y, double map_x, double map_y, double sig_x, double sig_y){
+	double gauss_norm = (1/(2*M_PI*sig_x*sig_y));
+	double exponent = pow(obs_x-map_x,2)/(2*pow(sig_x,2)) + pow(obs_y-map_y,2)/(2*pow(sig_y,2));
+	double prob = gauss_norm * exp(-exponent);
+	return prob;
+}
 #endif /* HELPER_FUNCTIONS_H_ */

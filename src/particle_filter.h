@@ -23,7 +23,7 @@ struct Particle {
 	std::vector<double> sense_y;
 };
 
-
+using namespace std;
 
 class ParticleFilter {
 	
@@ -81,6 +81,27 @@ public:
 	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations);
 	
 	/**
+	 * transformate the vechile codinate of observations to map codinate
+	 * @param a particle
+	 * @param vector of observations
+	 */
+	vector<LandmarkObs> transformation(Particle p, const vector<LandmarkObs> observations);
+
+	/**
+	 * get the associations for the given vector of transformed obsvations and the landmarks
+	 * @param vector of transformed observations
+	 * @param landmarks
+	 */
+	vector<Map::single_landmark_s> association(vector<LandmarkObs> obs_transformed,const Map &map_landmarks, double sensor_range);
+
+	/**
+	 * calculate the weight of a particle
+	 * @param vector of transformed observations
+	 * @param vector of associated landmarks
+	 */
+	double calculate_weight(vector<LandmarkObs> obs_transformed, vector<Map::single_landmark_s> associated_landmark_list, double std_landmark[]);
+
+	/**
 	 * updateWeights Updates the weights for each particle based on the likelihood of the 
 	 *   observed measurements. 
 	 * @param sensor_range Range [m] of sensor
@@ -96,6 +117,8 @@ public:
 	 *   the new set of particles.
 	 */
 	void resample();
+
+
 
 	/*
 	 * Set a particles list of associations, along with the associations calculated world x,y coordinates
