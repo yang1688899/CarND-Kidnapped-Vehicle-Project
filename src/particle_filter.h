@@ -85,7 +85,7 @@ public:
 	 * @param a particle
 	 * @param vector of observations
 	 */
-	vector<LandmarkObs> transformation(Particle p, const vector<LandmarkObs> observations);
+	vector<LandmarkObs> transformation(Particle p, vector<LandmarkObs> observations);
 
 	/**
 	 * get the associations for the given vector of transformed obsvations and the landmarks
